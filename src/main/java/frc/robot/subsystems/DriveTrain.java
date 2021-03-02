@@ -6,20 +6,15 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot.subsystems;
-
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import frc.robot.DriveConstants;
 import frc.robot.RobotMap;
 
 public class DriveTrain extends Subsystem { 
-  private final Encoder m_leftEncoder =
-      new Encoder(RobotMap.DRIVETRAIN_LEFT_FRONT_VICTORSP, RobotMap.DRIVETRAIN_LEFT_BACK_VICTORSP,
-                  DriveConstants.kLeftEncoderReversed);
+
     private static final SpeedController leftFrontVictorSP = new VictorSP(RobotMap.DRIVETRAIN_LEFT_FRONT_VICTORSP);
     private static final SpeedController leftRearVictorSP = new VictorSP(RobotMap.DRIVETRAIN_LEFT_BACK_VICTORSP);
     private static final SpeedController rightFrontVictorSP = new VictorSP(RobotMap.DRIVETRAIN_RIGHT_FRONT_VICTORSP);
