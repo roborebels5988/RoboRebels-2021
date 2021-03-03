@@ -29,4 +29,8 @@ public class DriveConstants {
     // Reasonable baseline values for a RAMSETE follower in units of meters and seconds
     public static final double kRamseteB = 2;
     public static final double kRamseteZeta = 0.7;
+
+    // Encoder settings
+    public static final boolean kLeftEncoderReversed = false;
+    public static final boolean kRightEncoderReversed = true;
 }

@@ -17,17 +17,28 @@ import frc.robot.DriveConstants;
 import frc.robot.RobotMap;
 
 public class DriveTrain extends Subsystem { 
-  private final Encoder m_leftEncoder =
-      new Encoder(RobotMap.DRIVETRAIN_LEFT_FRONT_VICTORSP, RobotMap.DRIVETRAIN_LEFT_BACK_VICTORSP,
-                  DriveConstants.kLeftEncoderReversed);
+
+    // Set up speed controllers
     private static final SpeedController leftFrontVictorSP = new VictorSP(RobotMap.DRIVETRAIN_LEFT_FRONT_VICTORSP);
     private static final SpeedController leftRearVictorSP = new VictorSP(RobotMap.DRIVETRAIN_LEFT_BACK_VICTORSP);
     private static final SpeedController rightFrontVictorSP = new VictorSP(RobotMap.DRIVETRAIN_RIGHT_FRONT_VICTORSP);
     private static final SpeedController rightRearVictorSP = new VictorSP(RobotMap.DRIVETRAIN_RIGHT_BACK_VICTORSP);
+
+    // Set up speed controller groups
     private static SpeedControllerGroup leftMotors = new SpeedControllerGroup(leftFrontVictorSP, leftRearVictorSP);
     private static SpeedControllerGroup rightMotors = new SpeedControllerGroup(rightFrontVictorSP, rightRearVictorSP);
+
+    // Set up Differential Drive
     public final static DifferentialDrive robotDrive = new DifferentialDrive(leftMotors, rightMotors);
     
+    // Set up encoders
+  private final Encoder m_leftEncoder = 
+    new Encoder(RobotMap.DRIVETRAIN_LEFT_FRONT_VICTORSP, RobotMap.DRIVETRAIN_LEFT_BACK_VICTORSP, DriveConstants.kLeftEncoderReversed);
+
+    // Set up encoders
+  private final Encoder m_rightEncoder = 
+  new Encoder(RobotMap.DRIVETRAIN_RIGHT_FRONT_VICTORSP, RobotMap.DRIVETRAIN_RIGHT_BACK_VICTORSP, DriveConstants.kRightEncoderReversed);
+
     public static void stop(){
       DriveTrain.robotDrive.arcadeDrive(0, 0);
     }
