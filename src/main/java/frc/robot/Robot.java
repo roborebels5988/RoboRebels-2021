@@ -10,7 +10,6 @@ package frc.robot;
 import java.io.IOException;
 import java.nio.file.Path;
 
-import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
@@ -24,9 +23,8 @@ import edu.wpi.first.wpilibj.trajectory.TrajectoryUtil;
 import edu.wpi.first.wpilibj.trajectory.constraint.DifferentialDriveVoltageConstraint;
 import frc.robot.subsystems.BallIntake;
 import frc.robot.subsystems.BallShooter;
-import edu.wpi.first.wpilibj.AnalogInput;
 import frc.robot.subsystems.DriveTrain;
-import frc.robot.DriveConstants;
+import frc.robot.subsystems.MyGyro;
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the TimedRobot
@@ -134,7 +132,7 @@ public class Robot extends TimedRobot {
             .addConstraint(autoVoltageConstraint);
 
     // Reset odometry to the starting pose of the trajectory.
-    m_robotDrive.resetOdometry(trajectory.getInitialPose());   
+    DriveTrain.m_odometry.resetPosition(trajectory.getInitialPose(), MyGyro.gyro.getRotation2d());
 
 
     

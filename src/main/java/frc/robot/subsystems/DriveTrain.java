@@ -13,6 +13,9 @@ import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.geometry.Pose2d;
+import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import frc.robot.DriveConstants;
 import frc.robot.RobotMap;
 
@@ -39,13 +42,28 @@ public class DriveTrain extends Subsystem {
   private final Encoder m_rightEncoder = 
   new Encoder(RobotMap.DRIVETRAIN_RIGHT_FRONT_VICTORSP, RobotMap.DRIVETRAIN_RIGHT_BACK_VICTORSP, DriveConstants.kRightEncoderReversed);
 
-    public static void stop(){
-      DriveTrain.robotDrive.arcadeDrive(0, 0);
+  public static DifferentialDriveOdometry m_odometry = new DifferentialDriveOdometry(
+    MyGyro.gyro.getRotation2d(), new Pose2d(5.0, 13.5, new Rotation2d()));
+
+  public static void stop(){
+    DriveTrain.robotDrive.arcadeDrive(0, 0);
+
     }
 
-@Override
-protected void initDefaultCommand() {
-  // Set the default command for a subsystem here.
-  // setDefaultCommand(new MySpecialCommand());
+  @Override
+  public void periodic() {
+    // Get my gyro angle. We are negating the value because gyros return positive
+    // values as the robot turns clockwise. This is not standard convention that is
+    // used by the WPILib classes.
+    var gyroAngle = Rotation2d.fromDegrees(-MyGyro.gyro.getAngle());
+    
+    // Update the pose
+    Pose2d m_pose = m_odometry.update(gyroAngle, m_leftEncoder.getDistance(), m_rightEncoder.getDistance());
+  }
+  
+    @Override
+    protected void initDefaultCommand() {
+    // Set the default command for a subsystem here.
+    // setDefaultCommand(new MySpecialCommand());
 }
 }
