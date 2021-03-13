@@ -49,7 +49,7 @@ public class DriveTrain extends Subsystem {
     DriveTrain.robotDrive.arcadeDrive(0, 0);
 
     }
-
+    public static Pose2d m_pose;
   @Override
   public void periodic() {
     // Get my gyro angle. We are negating the value because gyros return positive
@@ -58,9 +58,8 @@ public class DriveTrain extends Subsystem {
     var gyroAngle = Rotation2d.fromDegrees(-MyGyro.gyro.getAngle());
     
     // Update the pose
-    Pose2d m_pose = m_odometry.update(gyroAngle, m_leftEncoder.getDistance(), m_rightEncoder.getDistance());
+    m_pose = m_odometry.update(gyroAngle, m_leftEncoder.getDistance(), m_rightEncoder.getDistance());
   }
-  
     @Override
     protected void initDefaultCommand() {
     // Set the default command for a subsystem here.
