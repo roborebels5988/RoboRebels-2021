@@ -23,7 +23,12 @@ public class DriveTrain extends SubsystemBase {
   private static SpeedControllerGroup leftMotors = new SpeedControllerGroup(leftFrontVictorSP, leftRearVictorSP);
   private static SpeedControllerGroup rightMotors = new SpeedControllerGroup(rightFrontVictorSP, rightRearVictorSP);
   
-  public final static DifferentialDrive robotDrive = new DifferentialDrive(leftMotors, rightMotors);
+  public final DifferentialDrive robotDrive = new DifferentialDrive(leftMotors, rightMotors);
+
+  public void stop(){
+    robotDrive.arcadeDrive(0, 0);
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
