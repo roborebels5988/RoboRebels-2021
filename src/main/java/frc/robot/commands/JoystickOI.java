@@ -4,14 +4,24 @@
 
 package frc.robot.commands;
 
+import frc.robot.Settings;
 import frc.robot.subsystems.DriveTrain;
+import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
 public class JoystickOI extends CommandBase {
+
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
+
   private final DriveTrain m_drivetrain;
   private Boolean done;
+  private double throttle;
+  private GenericHID PrimaryController;
+  private XboxController SubsystemController;
+
   /**
    * Creates a new ExampleCommand.
    *
@@ -27,12 +37,23 @@ public class JoystickOI extends CommandBase {
   @Override
   public void initialize() {
     m_drivetrain.stop();
+    
+    // initialise the primary controller
+    if (Settings.xboxdrive){
+      XboxController PrimaryController = new XboxController(0);
+      throttle = 0;
+    }
+    else{
+      Joystick PrimaryController = new Joystick(0);
+      throttle = 0.5 + 0.5 * -PrimaryController.getThrottle();
+    }
+   SubsystemController = new XboxController(1);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_drivetrain.robotDrive.arcadeDrive(xSpeed, zRotation);
+    m_drivetrain.robotDrive.arcadeDrive(throttle * -PrimaryController.getY(), throttle * PrimaryController.getX());
     done = true;
   }
 
