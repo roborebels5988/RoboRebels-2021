@@ -40,12 +40,12 @@ public class JoystickOI extends CommandBase {
     
     // initialise the primary controller
     if (Settings.xboxdrive){
-      XboxController PrimaryController = new XboxController(0);
+      PrimaryController = new XboxController(0);
       throttle = 0;
     }
     else{
-      Joystick PrimaryController = new Joystick(0);
-      throttle = 0.5 + 0.5 * -PrimaryController.getThrottle();
+      PrimaryController = new Joystick(0);
+      throttle = 0.5 + 0.5 * -PrimaryController.getRawAxis(3);
     }
    SubsystemController = new XboxController(1);
   }
@@ -53,8 +53,9 @@ public class JoystickOI extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    System.out.println(PrimaryController.getRawAxis(3));
     m_drivetrain.robotDrive.arcadeDrive(throttle * -PrimaryController.getY(), throttle * PrimaryController.getX());
-    done = true;
+    done = false;
   }
 
   // Called once the command ends or is interrupted.
