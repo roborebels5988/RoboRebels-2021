@@ -17,8 +17,6 @@ public class JoystickOI extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
 
   private final DriveTrain m_drivetrain;
-  private Boolean done;
-  private double throttle;
   private GenericHID PrimaryController;
   private XboxController SubsystemController;
 
@@ -39,23 +37,26 @@ public class JoystickOI extends CommandBase {
     m_drivetrain.stop();
     
     // initialise the primary controller
-    if (Settings.xboxdrive){
-      PrimaryController = new XboxController(0);
-      throttle = 0;
-    }
-    else{
-      PrimaryController = new Joystick(0);
-      throttle = 0.5 + 0.5 * -PrimaryController.getRawAxis(3);
-    }
-   SubsystemController = new XboxController(1);
+    if (Settings.xboxdrive) {PrimaryController = new XboxController(0);}
+    else { PrimaryController = new Joystick(0); }
+    SubsystemController = new XboxController(1);
+  }
+
+  double throttle(){
+    double localThrottle;
+    if (Settings.xboxdrive == false) {localThrottle = 0.5 + 0.5 * -PrimaryController.getRawAxis(3);}
+    else {localThrottle = 1;}
+    return localThrottle;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    System.out.println(PrimaryController.getRawAxis(3));
-    m_drivetrain.robotDrive.arcadeDrive(throttle * -PrimaryController.getY(), throttle * PrimaryController.getX());
-    done = false;
+    double speed = throttle() * -PrimaryController.getY();
+    double rotation = throttle() * PrimaryController.getX();
+    rotation = rotation/1.5;
+    System.out.println(throttle());
+    m_drivetrain.robotDrive.arcadeDrive(speed, rotation);
   }
 
   // Called once the command ends or is interrupted.
@@ -67,6 +68,6 @@ public class JoystickOI extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return done;
+    return false;
   }
 }
