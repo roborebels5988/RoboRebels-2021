@@ -7,6 +7,7 @@ package frc.robot;
 import frc.robot.commands.LoadBalls;
 import frc.robot.commands.PrimaryControllerOI;
 import frc.robot.commands.ShootBalls;
+import frc.robot.commands.UnloadBalls;
 import frc.robot.subsystems.BallScorer;
 import frc.robot.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -14,6 +15,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.Button;
+
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -48,11 +50,13 @@ public class RobotContainer {
   private void configureButtonBindings() {
     // Define buttons
     final Button a = new JoystickButton(SubsystemController, XboxController.Button.kA.value);
-    final Button b = new JoystickButton(SubsystemController, XboxController.Button.kB.value);
+    final Button RB = new JoystickButton(SubsystemController, XboxController.Button.kBumperRight.value);
+    final Button LB = new JoystickButton(SubsystemController, XboxController.Button.kBumperLeft.value);
 
     // Run the commands
     a.whileHeld(new LoadBalls(m_ballscorer));
-    b.whileHeld(new ShootBalls(m_ballscorer));
+    RB.whileHeld(new ShootBalls(m_ballscorer));
+    LB.whileHeld(new UnloadBalls(m_ballscorer));
   }
 
   /**
