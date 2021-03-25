@@ -5,8 +5,12 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.Encoder;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -19,6 +23,13 @@ public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
 
+  Encoder LeftEncoder;
+  Encoder RightEncoder;
+  Gyro gyro = new ADXRS450_Gyro();
+  private static final double cpr = 5;
+  private static final double whd = 6; // for 6 inch wheel
+
+
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -27,6 +38,11 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
+    LeftEncoder = new Encoder(8,9);
+    RightEncoder = new Encoder(6,7);
+    LeftEncoder.setDistancePerPulse(Math.PI*whd/cpr); //distance per pulse is pi* (wheel diameter / counts per revolution)
+    RightEncoder.setDistancePerPulse(Math.PI*whd/cpr);
+
     m_robotContainer = new RobotContainer();
   }
 
@@ -39,6 +55,11 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
+    double LeftDist = LeftEncoder.getDistance();
+    SmartDashboard.putNumber("Left Encoder", LeftDist);
+    double RightDist = RightEncoder.getDistance();
+    SmartDashboard.putNumber("Right Encoder", RightDist);
+    SmartDashboard.putNumber("gyro", gyro.getAngle());
     // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
