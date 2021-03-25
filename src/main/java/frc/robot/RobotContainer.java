@@ -29,11 +29,15 @@ public class RobotContainer {
   // Define commands
   public final static PrimaryControllerOI m_joystickOI = new PrimaryControllerOI(m_driveTrain);
 
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
   }
+
+    // Define controller
+    private final XboxController SubsystemController = new XboxController(1);
 
   /**
    * Use this method to define your button->command mappings. Buttons can be created by
@@ -41,16 +45,14 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private final XboxController SubsystemController = new XboxController(1);
-
   private void configureButtonBindings() {
-    // define buttons
+    // Define buttons
     final Button a = new JoystickButton(SubsystemController, XboxController.Button.kA.value);
-    final Button b = new JoystickButton(SubsystemController, XboxController.Button.kA.value);
+    final Button b = new JoystickButton(SubsystemController, XboxController.Button.kB.value);
 
-    // run the commands
-    a.whenPressed(new LoadBalls(m_ballscorer));
-    b.whenPressed(new ShootBalls(m_ballscorer));
+    // Run the commands
+    a.whileHeld(new LoadBalls(m_ballscorer));
+    b.whileHeld(new ShootBalls(m_ballscorer));
   }
 
   /**
