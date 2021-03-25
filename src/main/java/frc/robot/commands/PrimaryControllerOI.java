@@ -12,20 +12,19 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
-public class JoystickOI extends CommandBase {
+public class PrimaryControllerOI extends CommandBase {
 
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
 
   private final DriveTrain m_drivetrain;
   private GenericHID PrimaryController;
-  private XboxController SubsystemController;
 
   /**
    * Creates a new ExampleCommand.
    *
    * @param drivetrain The subsystem used by this command.
    */
-  public JoystickOI(DriveTrain drivetrain) {
+  public PrimaryControllerOI(DriveTrain drivetrain) {
     m_drivetrain = drivetrain;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(drivetrain);
@@ -38,8 +37,7 @@ public class JoystickOI extends CommandBase {
     
     // initialise the primary controller
     if (Settings.xboxdrive) {PrimaryController = new XboxController(0);}
-    else { PrimaryController = new Joystick(0); }
-    SubsystemController = new XboxController(1);
+    else {PrimaryController = new Joystick(0);}
   }
 
   double throttle(){
@@ -55,7 +53,6 @@ public class JoystickOI extends CommandBase {
     double speed = throttle() * -PrimaryController.getY();
     double rotation = throttle() * PrimaryController.getX();
     rotation = rotation/1.5;
-    System.out.println(throttle());
     m_drivetrain.robotDrive.arcadeDrive(speed, rotation);
   }
 

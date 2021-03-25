@@ -4,9 +4,16 @@
 
 package frc.robot;
 
-import frc.robot.commands.JoystickOI;
+import frc.robot.commands.LoadBalls;
+import frc.robot.commands.PrimaryControllerOI;
+import frc.robot.commands.ShootBalls;
+import frc.robot.subsystems.BallScorer;
 import frc.robot.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj2.command.button.Button;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -17,9 +24,10 @@ import edu.wpi.first.wpilibj2.command.Command;
 public class RobotContainer {
 // Define subsystems
   private final static DriveTrain m_driveTrain = new DriveTrain();
+  private final static BallScorer m_ballscorer = new BallScorer();
 
   // Define commands
-  public final static JoystickOI m_joystickOI = new JoystickOI(m_driveTrain);
+  public final static PrimaryControllerOI m_joystickOI = new PrimaryControllerOI(m_driveTrain);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -33,8 +41,16 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
+  private final XboxController SubsystemController = new XboxController(1);
+
   private void configureButtonBindings() {
-    
+    // define buttons
+    final Button a = new JoystickButton(SubsystemController, XboxController.Button.kA.value);
+    final Button b = new JoystickButton(SubsystemController, XboxController.Button.kA.value);
+
+    // run the commands
+    a.whenPressed(new LoadBalls(m_ballscorer));
+    b.whenPressed(new ShootBalls(m_ballscorer));
   }
 
   /**
