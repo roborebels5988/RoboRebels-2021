@@ -64,7 +64,7 @@ public class Robot extends TimedRobot {
     double LeftDist = LeftEncoder.getDistance();
     SmartDashboard.putNumber("Left Encoder", LeftDist);
     double RightDist = RightEncoder.getDistance();
-    SmartDashboard.putNumber("Right Encoder", RightDist);
+    SmartDashboard.putNumber("Right Encoder", -RightDist);
     SmartDashboard.putNumber("gyro", gyro.getAngle());
     // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
     // commands, running already-scheduled commands, removing finished or interrupted commands,
