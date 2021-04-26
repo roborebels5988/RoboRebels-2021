@@ -4,25 +4,26 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PWMVictorSPX;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
 
 public class BallScorer extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
   public BallScorer() {}
 
-    private final SpeedController IntakeVictorSPX = new PWMVictorSPX(Constants.BALL_INTAKE);
-    private final SpeedController LoaderVicterSPX = new PWMVictorSPX(Constants.BALL_LOADER);
-    private final SpeedController ShooterVicterSPX = new PWMVictorSPX(Constants.BALL_SHOOTER);
+  private final SpeedController IntakeVictorSPX = new PWMVictorSPX(Constants.BALL_INTAKE);
+  private final SpeedController LoaderVicterSPX = new PWMVictorSPX(Constants.BALL_LOADER);
 
 
-    public final SpeedControllerGroup LoaderIntake = new SpeedControllerGroup(IntakeVictorSPX, LoaderVicterSPX);
-    public final SpeedControllerGroup AllMotors = new SpeedControllerGroup(LoaderIntake, ShooterVicterSPX);
-    
-    
+  public final SpeedControllerGroup LoaderIntake = new SpeedControllerGroup(IntakeVictorSPX, LoaderVicterSPX);
+  
+  DoubleSolenoid Shooter = new DoubleSolenoid(1, 2);
+  //exampleDouble.set(kReverse);
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
