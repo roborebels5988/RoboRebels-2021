@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Sendable;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.cameraserver.CameraServer;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -46,6 +47,11 @@ public class Robot extends TimedRobot {
     RightEncoder = new Encoder(6,7);
     LeftEncoder.setDistancePerPulse(Math.PI*whd/cpr); //distance per pulse is pi* (wheel diameter / counts per revolution)
     RightEncoder.setDistancePerPulse(Math.PI*whd/cpr);
+    
+CameraServer.getInstance().startAutomaticCapture(0);
+CameraServer.getInstance().startAutomaticCapture(1);
+CameraServer.getInstance().startAutomaticCapture(2);
+
 
     m_robotContainer = new RobotContainer();
 
