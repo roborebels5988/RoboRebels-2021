@@ -23,7 +23,6 @@ public final class Constants {
     //Initailize other motor controllers
     public static final int BALL_INTAKE = 4;
     public static final int BALL_LOADER = 5;
-    public static final int BALL_SHOOTER = 6;
 
     
 }

@@ -5,23 +5,26 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.BallScorer;
+import frc.robot.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
-public class ShootBalls extends CommandBase {
+public class AutoCommand extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final BallScorer m_subsystem;
+  private final BallScorer m_BallScorer;
+  private final DriveTrain m_DriveTrain;
 
   /**
    * Creates a new ExampleCommand.
    *
-   * @param subsystem The subsystem used by this command.
+   * @param BallScorer The subsystem used by this command.
    */
-  public ShootBalls(BallScorer subsystem) {
-    m_subsystem = subsystem;
+  public AutoCommand(BallScorer ballscorer, DriveTrain drivetrain) {
+    m_BallScorer = ballscorer;
+    m_DriveTrain = drivetrain;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(subsystem);
+    addRequirements(ballscorer, drivetrain);
   }
 
   // Called when the command is initially scheduled.
@@ -31,17 +34,16 @@ public class ShootBalls extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_subsystem.LoaderIntake.set(0.7);
-    m_subsystem.Shooter.set(Value.kForward);
-  
+
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_subsystem.LoaderIntake.set(0);
-    m_subsystem.Shooter.set(Value.kOff);
-  }
+    m_DriveTrain.stop();
+    m_BallScorer.LoaderIntake.set(0);
+    m_BallScorer.Shooter.set(Value.kOff);
+    }
 
   // Returns true when the command should end.
   @Override

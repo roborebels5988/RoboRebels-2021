@@ -13,16 +13,15 @@ import edu.wpi.first.wpilibj.SpeedControllerGroup;
 
 public class BallScorer extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
-  public BallScorer() {}
+  public BallScorer() {
+  }
 
   private final SpeedController IntakeVictorSPX = new PWMVictorSPX(Constants.BALL_INTAKE);
   private final SpeedController LoaderVicterSPX = new PWMVictorSPX(Constants.BALL_LOADER);
 
-
   public final SpeedControllerGroup LoaderIntake = new SpeedControllerGroup(IntakeVictorSPX, LoaderVicterSPX);
-  
-  DoubleSolenoid Shooter = new DoubleSolenoid(1, 2);
-  //exampleDouble.set(kReverse);
+
+  public final DoubleSolenoid Shooter = new DoubleSolenoid(0, 1);
 
   @Override
   public void periodic() {

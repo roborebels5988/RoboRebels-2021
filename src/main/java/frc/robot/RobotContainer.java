@@ -49,12 +49,12 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     // Define buttons
-    final Button a = new JoystickButton(SubsystemController, XboxController.Button.kA.value);
+    final Button A = new JoystickButton(SubsystemController, XboxController.Button.kA.value);
     final Button RB = new JoystickButton(SubsystemController, XboxController.Button.kBumperRight.value);
     final Button LB = new JoystickButton(SubsystemController, XboxController.Button.kBumperLeft.value);
 
     // Run the commands
-    a.whileHeld(new LoadBalls(m_ballscorer));
+    A.whileHeld(new LoadBalls(m_ballscorer));
     RB.whileHeld(new ShootBalls(m_ballscorer));
     LB.whileHeld(new UnloadBalls(m_ballscorer));
   }
