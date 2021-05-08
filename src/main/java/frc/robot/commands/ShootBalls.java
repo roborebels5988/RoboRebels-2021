@@ -32,7 +32,7 @@ public class ShootBalls extends CommandBase {
   @Override
   public void execute() {
     m_subsystem.LoaderIntake.set(0.7);
-    m_subsystem.Shooter.set(Value.kForward);
+    m_subsystem.Shooter.set(Value.kReverse);
   
   }
 

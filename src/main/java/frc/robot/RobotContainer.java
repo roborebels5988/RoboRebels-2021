@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import frc.robot.commands.AutoCommand;
 import frc.robot.commands.LoadBalls;
 import frc.robot.commands.PrimaryControllerOI;
 import frc.robot.commands.ShootBalls;
@@ -30,7 +31,8 @@ public class RobotContainer {
 
   // Define commands
   public final static PrimaryControllerOI m_joystickOI = new PrimaryControllerOI(m_driveTrain);
-
+  public final static ShootBalls m_shoot_balls = new ShootBalls(m_ballscorer);
+  public final static AutoCommand m_auto_command = new AutoCommand(m_ballscorer, m_driveTrain);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -66,6 +68,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return null;
+    return m_auto_command;
   }
 }
