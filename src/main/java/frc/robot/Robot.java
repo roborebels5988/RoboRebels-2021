@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Sendable;
 import edu.wpi.first.wpilibj.SPI;
@@ -32,7 +33,8 @@ public class Robot extends TimedRobot {
   Gyro gyro = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
   private static final double cpr = 5;
   private static final double whd = 6; // for 6 inch wheel
-
+  Compressor comp = new Compressor()
+;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -92,6 +94,7 @@ CameraServer.getInstance().startAutomaticCapture(2);
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
+    comp.start();
     CommandScheduler.getInstance().cancelAll();
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
@@ -107,6 +110,8 @@ CameraServer.getInstance().startAutomaticCapture(2);
 
   @Override
   public void teleopInit() {
+    comp.start();
+
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove

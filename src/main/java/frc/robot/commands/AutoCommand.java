@@ -36,17 +36,22 @@ public class AutoCommand extends CommandBase {
   public void initialize() {
     timer.reset();
     timer.start();
+    m_BallScorer.Shooter.set(Value.kReverse);
     }
     
-
-  // Called every time the scheduler runs while the command is scheduled.
+int i = 0;
+  // Called every time the scheduler runs while the command is scheduled.\
   @Override
   public void execute() {
     if (timer.get() <= 2){ // Go forward for 2 seconds
       m_DriveTrain.robotDrive.arcadeDrive(0.5, 0);  
     }
     else{
-      m_BallScorer.Shooter.set(Value.kReverse);
+      if(i == 0){
+        System.out.println("dropping balls auto");
+        m_BallScorer.Shooter.set(Value.kForward);
+        i = i+1;
+      }
     }
 }
 

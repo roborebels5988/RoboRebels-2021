@@ -32,7 +32,7 @@ public class ShootBalls extends CommandBase {
   @Override
   public void execute() {
     m_subsystem.LoaderIntake.set(0.7);
-    m_subsystem.Shooter.set(Value.kReverse);
+    m_subsystem.Shooter.set(Value.kForward);
   
   }
 
@@ -40,7 +40,7 @@ public class ShootBalls extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     m_subsystem.LoaderIntake.set(0);
-    m_subsystem.Shooter.set(Value.kOff);
+    m_subsystem.Shooter.set(Value.kReverse);
   }
 
   // Returns true when the command should end.
