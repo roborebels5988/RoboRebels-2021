@@ -43,13 +43,13 @@ int i = 0;
   // Called every time the scheduler runs while the command is scheduled.\
   @Override
   public void execute() {
-    if (timer.get() <= 2){ // Go forward for 2 seconds
+    if (timer.get() <= 2){ // Go forward for 4 seconds
       m_DriveTrain.robotDrive.arcadeDrive(0.5, 0);  
     }
     else{
-      if(i == 0){
-        System.out.println("dropping balls auto");
-        m_BallScorer.Shooter.set(Value.kForward);
+      if(i <= 10){
+        //System.out.println("dropping balls auto");
+        //m_BallScorer.Shooter.set(Value.kForward);
         i = i+1;
       }
     }
@@ -59,13 +59,13 @@ int i = 0;
   @Override
   public void end(boolean interrupted) {
     m_DriveTrain.stop();
-    m_BallScorer.LoaderIntake.set(0);
-    m_BallScorer.Shooter.set(Value.kOff);
+    //m_BallScorer.LoaderIntake.set(0);
+    //m_BallScorer.Shooter.set(Value.kOff);
     }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return timer.get() > 4;  // end the command if we have run for at 4 seconds
+    return timer.get() >= 4;  // give it plenty of time to finish
   }
 }
