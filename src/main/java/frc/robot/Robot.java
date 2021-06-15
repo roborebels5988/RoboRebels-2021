@@ -33,8 +33,7 @@ public class Robot extends TimedRobot {
   Gyro gyro = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
   private static final double cpr = 5;
   private static final double whd = 6; // for 6 inch wheel
-  Compressor comp = new Compressor()
-;
+  Compressor comp = new Compressor();
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -42,17 +41,18 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
+    // Instantiate our RobotContainer. This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     Shuffleboard.getTab("Example tab").add("gyro", (Sendable) gyro);
-    LeftEncoder = new Encoder(8,9);
-    RightEncoder = new Encoder(6,7);
-    LeftEncoder.setDistancePerPulse(Math.PI*whd/cpr); //distance per pulse is pi* (wheel diameter / counts per revolution)
-    RightEncoder.setDistancePerPulse(Math.PI*whd/cpr);
-    
-CameraServer.getInstance().startAutomaticCapture(0);
-CameraServer.getInstance().startAutomaticCapture(1);
-CameraServer.getInstance().startAutomaticCapture(2);
+    LeftEncoder = new Encoder(8, 9);
+    RightEncoder = new Encoder(6, 7);
+    LeftEncoder.setDistancePerPulse(Math.PI * whd / cpr); // distance per pulse is pi* (wheel
+                                                          // diameter / counts per revolution)
+    RightEncoder.setDistancePerPulse(Math.PI * whd / cpr);
+
+    CameraServer.getInstance().startAutomaticCapture(0);
+    CameraServer.getInstance().startAutomaticCapture(1);
+    CameraServer.getInstance().startAutomaticCapture(2);
 
 
     m_robotContainer = new RobotContainer();
@@ -64,8 +64,9 @@ CameraServer.getInstance().startAutomaticCapture(2);
    * This function is called every robot packet, no matter the mode. Use this for items like
    * diagnostics that you want ran during disabled, autonomous, teleoperated and test.
    *
-   * <p>This runs after the mode specific periodic functions, but before LiveWindow and
-   * SmartDashboard integrated updating.
+   * <p>
+   * This runs after the mode specific periodic functions, but before LiveWindow and SmartDashboard
+   * integrated updating.
    */
   @Override
   public void robotPeriodic() {
@@ -74,9 +75,9 @@ CameraServer.getInstance().startAutomaticCapture(2);
     double RightDist = RightEncoder.getDistance();
     SmartDashboard.putNumber("Right Encoder", -RightDist);
     SmartDashboard.putNumber("gyro", gyro.getAngle());
-    // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
+    // Runs the Scheduler. This is responsible for polling buttons, adding newly-scheduled
     // commands, running already-scheduled commands, removing finished or interrupted commands,
-    // and running subsystem periodic() methods.  This must be called from the robot's periodic
+    // and running subsystem periodic() methods. This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
   }
@@ -89,7 +90,8 @@ CameraServer.getInstance().startAutomaticCapture(2);
   }
 
   @Override
-  public void disabledPeriodic() {}
+  public void disabledPeriodic() {
+  }
 
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
@@ -106,7 +108,8 @@ CameraServer.getInstance().startAutomaticCapture(2);
 
   /** This function is called periodically during autonomous. */
   @Override
-  public void autonomousPeriodic() {}
+  public void autonomousPeriodic() {
+  }
 
   @Override
   public void teleopInit() {
@@ -135,5 +138,6 @@ CameraServer.getInstance().startAutomaticCapture(2);
 
   /** This function is called periodically during test mode. */
   @Override
-  public void testPeriodic() {}
+  public void testPeriodic() {
+  }
 }

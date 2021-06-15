@@ -19,7 +19,8 @@ public class BallScorer extends SubsystemBase {
   private final SpeedController IntakeVictorSPX = new PWMVictorSPX(Constants.BALL_INTAKE);
   private final SpeedController LoaderVicterSPX = new PWMVictorSPX(Constants.BALL_LOADER);
 
-  public final SpeedControllerGroup LoaderIntake = new SpeedControllerGroup(IntakeVictorSPX, LoaderVicterSPX);
+  public final SpeedControllerGroup LoaderIntake =
+      new SpeedControllerGroup(IntakeVictorSPX, LoaderVicterSPX);
 
   public final DoubleSolenoid Shooter = new DoubleSolenoid(0, 1);
 

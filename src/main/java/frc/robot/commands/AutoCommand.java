@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
 public class AutoCommand extends CommandBase {
-  @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
+  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final BallScorer m_BallScorer;
   private final DriveTrain m_DriveTrain;
 
@@ -22,6 +22,7 @@ public class AutoCommand extends CommandBase {
    * @param BallScorer The subsystem used by this command.
    */
   Timer timer;
+
   public AutoCommand(BallScorer ballscorer, DriveTrain drivetrain) {
 
     m_BallScorer = ballscorer;
@@ -37,35 +38,35 @@ public class AutoCommand extends CommandBase {
     timer.reset();
     timer.start();
     m_BallScorer.Shooter.set(Value.kReverse);
-    }
-    
-int i = 0;
+  }
+
+  int i = 0;
+
   // Called every time the scheduler runs while the command is scheduled.\
   @Override
   public void execute() {
-    if (timer.get() <= 2){ // Go forward for 4 seconds
-      m_DriveTrain.robotDrive.arcadeDrive(0.5, 0);  
-    }
-    else{
-      if(i <= 10){
-        //System.out.println("dropping balls auto");
-        //m_BallScorer.Shooter.set(Value.kForward);
-        i = i+1;
+    if (timer.get() <= 2) { // Go forward for 4 seconds
+      m_DriveTrain.robotDrive.arcadeDrive(0.5, 0);
+    } else {
+      if (i <= 10) {
+        // System.out.println("dropping balls auto");
+        // m_BallScorer.Shooter.set(Value.kForward);
+        i = i + 1;
       }
     }
-}
+  }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     m_DriveTrain.stop();
-    //m_BallScorer.LoaderIntake.set(0);
-    //m_BallScorer.Shooter.set(Value.kOff);
-    }
+    // m_BallScorer.LoaderIntake.set(0);
+    // m_BallScorer.Shooter.set(Value.kOff);
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return timer.get() >= 4;  // give it plenty of time to finish
+    return timer.get() >= 4; // give it plenty of time to finish
   }
 }

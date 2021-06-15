@@ -25,7 +25,7 @@ import edu.wpi.first.wpilibj2.command.button.Button;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-// Define subsystems
+  // Define subsystems
   private final static DriveTrain m_driveTrain = new DriveTrain();
   private final static BallScorer m_ballscorer = new BallScorer();
 
@@ -40,20 +40,22 @@ public class RobotContainer {
     configureButtonBindings();
   }
 
-    // Define controller
-    private final XboxController SubsystemController = new XboxController(1);
+  // Define controller
+  private final XboxController SubsystemController = new XboxController(1);
 
   /**
    * Use this method to define your button->command mappings. Buttons can be created by
-   * instantiating a {@link GenericHID} or one of its subclasses ({@link
-   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
-   * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
+   * instantiating a {@link GenericHID} or one of its subclasses
+   * ({@link edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a
+   * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
     // Define buttons
     final Button A = new JoystickButton(SubsystemController, XboxController.Button.kA.value);
-    final Button RB = new JoystickButton(SubsystemController, XboxController.Button.kBumperRight.value);
-    final Button LB = new JoystickButton(SubsystemController, XboxController.Button.kBumperLeft.value);
+    final Button RB =
+        new JoystickButton(SubsystemController, XboxController.Button.kBumperRight.value);
+    final Button LB =
+        new JoystickButton(SubsystemController, XboxController.Button.kBumperLeft.value);
 
     // Run the commands
     A.whileHeld(new LoadBalls(m_ballscorer));

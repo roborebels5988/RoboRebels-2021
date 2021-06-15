@@ -13,19 +13,26 @@ import frc.robot.Constants;
 
 public class DriveTrain extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
-  public DriveTrain() {}
-  
-  private static final SpeedController leftFrontVictorSP = new VictorSP(Constants.DRIVETRAIN_LEFT_FRONT_VICTORSP);
-  private static final SpeedController leftRearVictorSP = new VictorSP(Constants.DRIVETRAIN_LEFT_BACK_VICTORSP);
-  private static final SpeedController rightFrontVictorSP = new VictorSP(Constants.DRIVETRAIN_RIGHT_FRONT_VICTORSP);
-  private static final SpeedController rightRearVictorSP = new VictorSP(Constants.DRIVETRAIN_RIGHT_BACK_VICTORSP);
+  public DriveTrain() {
+  }
 
-  private static SpeedControllerGroup leftMotors = new SpeedControllerGroup(leftFrontVictorSP, leftRearVictorSP);
-  private static SpeedControllerGroup rightMotors = new SpeedControllerGroup(rightFrontVictorSP, rightRearVictorSP);
-  
+  private static final SpeedController leftFrontVictorSP =
+      new VictorSP(Constants.DRIVETRAIN_LEFT_FRONT_VICTORSP);
+  private static final SpeedController leftRearVictorSP =
+      new VictorSP(Constants.DRIVETRAIN_LEFT_BACK_VICTORSP);
+  private static final SpeedController rightFrontVictorSP =
+      new VictorSP(Constants.DRIVETRAIN_RIGHT_FRONT_VICTORSP);
+  private static final SpeedController rightRearVictorSP =
+      new VictorSP(Constants.DRIVETRAIN_RIGHT_BACK_VICTORSP);
+
+  private static SpeedControllerGroup leftMotors =
+      new SpeedControllerGroup(leftFrontVictorSP, leftRearVictorSP);
+  private static SpeedControllerGroup rightMotors =
+      new SpeedControllerGroup(rightFrontVictorSP, rightRearVictorSP);
+
   public final DifferentialDrive robotDrive = new DifferentialDrive(leftMotors, rightMotors);
 
-  public void stop(){
+  public void stop() {
     robotDrive.arcadeDrive(0, 0);
   }
 

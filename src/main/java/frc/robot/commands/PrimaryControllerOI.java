@@ -34,16 +34,22 @@ public class PrimaryControllerOI extends CommandBase {
   @Override
   public void initialize() {
     m_drivetrain.stop();
-    
+
     // initialise the primary controller
-    if (Settings.xboxdrive) {PrimaryController = new XboxController(0);}
-    else {PrimaryController = new Joystick(0);}
+    if (Settings.xboxdrive) {
+      PrimaryController = new XboxController(0);
+    } else {
+      PrimaryController = new Joystick(0);
+    }
   }
 
-  double throttle(){
+  double throttle() {
     double localThrottle;
-    if (Settings.xboxdrive == false) {localThrottle = 0.5 + 0.5 * -PrimaryController.getRawAxis(3);}
-    else {localThrottle = 1;}
+    if (Settings.xboxdrive == false) {
+      localThrottle = 0.5 + 0.5 * -PrimaryController.getRawAxis(3);
+    } else {
+      localThrottle = 1;
+    }
     return localThrottle;
   }
 
@@ -52,7 +58,7 @@ public class PrimaryControllerOI extends CommandBase {
   public void execute() {
     double speed = throttle() * -PrimaryController.getY();
     double rotation = throttle() * PrimaryController.getX();
-    rotation = rotation/1.5;
+    rotation = rotation / 1.5;
     m_drivetrain.robotDrive.arcadeDrive(speed, rotation);
   }
 
