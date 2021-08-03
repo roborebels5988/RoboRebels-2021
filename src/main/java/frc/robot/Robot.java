@@ -5,17 +5,9 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.interfaces.Gyro;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.Sendable;
-import edu.wpi.first.wpilibj.SPI;
-import edu.wpi.first.cameraserver.CameraServer;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -25,15 +17,8 @@ import edu.wpi.first.cameraserver.CameraServer;
  */
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
-
   private RobotContainer m_robotContainer;
-
-  Encoder LeftEncoder;
-  Encoder RightEncoder;
-  Gyro gyro = new ADXRS450_Gyro(SPI.Port.kOnboardCS0);
-  private static final double cpr = 5;
-  private static final double whd = 6; // for 6 inch wheel
-  Compressor comp = new Compressor();
+  Compressor compressor = new Compressor();
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -43,17 +28,6 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     // Instantiate our RobotContainer. This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
-    Shuffleboard.getTab("Example tab").add("gyro", (Sendable) gyro);
-    LeftEncoder = new Encoder(8, 9);
-    RightEncoder = new Encoder(6, 7);
-    LeftEncoder.setDistancePerPulse(Math.PI * whd / cpr); // distance per pulse is pi* (wheel
-                                                          // diameter / counts per revolution)
-    RightEncoder.setDistancePerPulse(Math.PI * whd / cpr);
-
-    CameraServer.getInstance().startAutomaticCapture(0);
-    CameraServer.getInstance().startAutomaticCapture(1);
-    CameraServer.getInstance().startAutomaticCapture(2);
-
 
     m_robotContainer = new RobotContainer();
 
@@ -70,11 +44,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    double LeftDist = LeftEncoder.getDistance();
-    SmartDashboard.putNumber("Left Encoder", LeftDist);
-    double RightDist = RightEncoder.getDistance();
-    SmartDashboard.putNumber("Right Encoder", -RightDist);
-    SmartDashboard.putNumber("gyro", gyro.getAngle());
     // Runs the Scheduler. This is responsible for polling buttons, adding newly-scheduled
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods. This must be called from the robot's periodic
@@ -96,7 +65,7 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
-    comp.start();
+    compressor.start();
     CommandScheduler.getInstance().cancelAll();
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
@@ -113,7 +82,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    comp.start();
+    compressor.start();
 
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
