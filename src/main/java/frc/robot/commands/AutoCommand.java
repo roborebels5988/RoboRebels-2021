@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import frc.robot.Settings;
 import frc.robot.subsystems.BallScorer;
 import frc.robot.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj.Timer;
@@ -42,15 +43,16 @@ public class AutoCommand extends CommandBase {
 
   int i = 0;
 
-  // Called every time the scheduler runs while the command is scheduled.\
+  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     if (timer.get() <= 2) { // Go forward for 4 seconds
       m_DriveTrain.robotDrive.arcadeDrive(0.5, 0);
     } else {
       if (i <= 10) {
-        // System.out.println("dropping balls auto");
-        // m_BallScorer.Shooter.set(Value.kForward);
+        if (Settings.ShootInAuto == true) {
+          m_BallScorer.Shooter.set(Value.kForward);
+        }
         i = i + 1;
       }
     }

@@ -11,7 +11,6 @@ import frc.robot.commands.ShootBalls;
 import frc.robot.commands.UnloadBalls;
 import frc.robot.subsystems.BallScorer;
 import frc.robot.subsystems.DriveTrain;
-import frc.robot.subsystems.MiscElectronics;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.GenericHID;
@@ -29,7 +28,6 @@ public class RobotContainer {
   // Define subsystems
   private final static DriveTrain m_driveTrain = new DriveTrain();
   private final static BallScorer m_ballscorer = new BallScorer();
-  private final static MiscElectronics m_miscelectronics = new MiscElectronics();
 
   // Define commands
   public final static PrimaryControllerOI m_joystickOI = new PrimaryControllerOI(m_driveTrain);

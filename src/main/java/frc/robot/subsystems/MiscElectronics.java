@@ -30,8 +30,8 @@ public class MiscElectronics extends SubsystemBase {
   public MiscElectronics() {
     
     // init cameras
+    System.out.println("starting" + Settings.CameraAmount + "camera servers");
     for (int i = 0; i < Settings.CameraAmount; i++) {
-      System.out.println(i);
       CameraServer.getInstance().startAutomaticCapture(i);
     }
 
